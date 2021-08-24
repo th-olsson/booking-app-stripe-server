@@ -1,13 +1,19 @@
-// This example sets up an endpoint using the Express framework.
-// Watch this video to get started: https://youtu.be/rPR2aJ6XnAc.
+require('dotenv').config()
+
+const STRIPE_PRIVATE_KEY = process.env.STRIPE_PRIVATE_KEY;
 
 const express = require('express');
 const app = express(); 
 const cors = require('cors')
+const bodyParser = require('body-parser')
 
 const stripe = require('stripe')('sk_test_51IxciSKErirhniufS8YCZbUBG5JJVK70O3YG0CJICcwXB9W03FgMKFO0EA006XPi0mNeDDKak3luRbo65NuPCVQS00gnEFytpJ')
 
 app.use(cors())
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
+app.use(bodyParser.json())
 
 app.post('/create-checkout-session', async (req, res) => {
   const session = await stripe.checkout.sessions.create({
@@ -15,11 +21,11 @@ app.post('/create-checkout-session', async (req, res) => {
     line_items: [
       {
         price_data: {
-          currency: 'usd',
+          currency: 'sek',
           product_data: {
-            name: 'T-shirt',
+            name: 'Bokningar',
           },
-          unit_amount: 2000,
+          unit_amount: req.body.price * 100,
         },
         quantity: 1,
       },
