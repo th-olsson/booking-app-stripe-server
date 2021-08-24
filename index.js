@@ -38,4 +38,4 @@ app.post('/create-checkout-session', async (req, res) => {
   res.json({ id: session });
 });
 
-app.listen(4242, () => console.log(`Listening on port ${4242}!`));
+app.listen(4242 || process.env.PORT, () => console.log(`Listening on port ${4242}!`));
