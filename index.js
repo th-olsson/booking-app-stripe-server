@@ -31,8 +31,8 @@ app.post('/create-checkout-session', async (req, res) => {
       },
     ],
     mode: 'payment',
-    success_url: 'http://localhost:4242/success.html',
-    cancel_url: 'http://localhost:3000/bokningar',
+    success_url: 'https://goofy-spence-1cb006.netlify.app/success.html',
+    cancel_url: 'https://goofy-spence-1cb006.netlify.app/bokningar',
   });
 
   res.json({ id: session });
